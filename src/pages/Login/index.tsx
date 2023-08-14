@@ -1,7 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import "./index.scss";
+import axios from "../../api/axios.ts";
 
 export default function Login() {
+  const [username, setUsername] = useState<string | undefined>();
+  const [password, setPassword] = useState<string | undefined>();
+
+  const canSave = username && password;
+
+  const login = async () => {
+    if (canSave) {
+      let reponse = axios
+        .post("Account/Login", { username, password })
+        .then((data) => data);
+
+        console.log("response" ,reponse)
+    }
+  };
+
   return (
     <main className="main">
       <div className="login">
@@ -11,14 +27,22 @@ export default function Login() {
         <div className="body">
           <div className="input_row">
             <label>نام کاربری</label>
-            <input type="text" />
+            <input
+              type="text"
+              onChange={(event) => setUsername(event.target.value)}
+              value={username}
+            />
           </div>
           <div className="input_row">
             <label>کلمه عبور</label>
-            <input type="text" />
+            <input
+              type="password"
+              onChange={(event) => setPassword(event.currentTarget.value)}
+              value={password}
+            />
           </div>
           <div className="input_row">
-            <button>ورود</button>
+            <button onClick={login}>ورود</button>
           </div>
         </div>
       </div>

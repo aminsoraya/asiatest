@@ -1,4 +1,4 @@
-@import '../../sass/base';
+@import "../../assets/base";
 
 .main {
   width: 100%;
@@ -20,24 +20,24 @@
       text-align: center;
       margin-top: 30px;
       color: rgb(102, 101, 101);
-    }.body{
-        .input_row{
-            margin-top: 10px;
-            display: flex;
-            flex-direction: column;
-            label{
-                color: gray;
-                font-size: 12px;
-            }
-            input{
-                @extend %input-text;
-                margin-top: 10px;
-            }
-            button{
-                @extend %button;
-                margin-top: 20px;
-            }
+    }
+    .body {
+      .input_row {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        label {
+          color: gray;
+          font-size: 12px;
         }
+        input {
+          @extend %input-text;
+          margin-top: 10px;
+        }
+        button {
+          margin-top: 20px;
+        }
+      }
     }
   }
 }

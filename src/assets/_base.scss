@@ -1,0 +1,12 @@
+$control_height: 40px;
+$rounded_standard: 15px;
+$button_background: rgb(255, 218, 7);
+
+%input-text {
+  background: rgb(205, 234, 245);
+  height: $control_height;
+  border: 1px solid rgb(156, 213, 223);
+  outline: none;
+  border-radius: $rounded_standard;
+  padding-right: 10px;
+}

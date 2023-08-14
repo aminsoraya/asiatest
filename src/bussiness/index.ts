@@ -6,5 +6,6 @@ export interface IApiResponse{
 }
 
 export enum EnumResponseStatus{
-    invalid=0
+    invalid=0,
+    valid=1
 }

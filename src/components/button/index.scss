@@ -1,0 +1,12 @@
+@import "../../assets/base";
+
+.button {
+  height: $control_height;
+  border-radius: $rounded_standard;
+  border: none;
+  background: $button_background;
+  font-weight: bold;
+  color: rgb(94, 93, 93);
+  cursor: pointer;
+  box-shadow: 0 0 15px rgb(168, 167, 167);
+}

@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import "./index.scss";
 import useAxios from "../../api/index";
-import { ToastifyError } from "../../components/Toastify";
-import { EnumResponseStatus, IApiResponse } from "../../bussiness/index";
+import Toastify from "../../components/Toastify";
+import { EnumResponseStatus, IApiResponse, IResponseMessage } from "../../bussiness/index";
 import Button from "../../components/button";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [username, setUsername] = useState<string | undefined>();
   const [password, setPassword] = useState<string | undefined>();
-  const [error, setError] = useState<string | undefined>();
+  const [responseMessage, setResponseMessage] = useState<
+  IResponseMessage | undefined
+>();
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -27,11 +29,11 @@ export default function Login() {
 
       //handle responses
       if (status == EnumResponseStatus.invalid) {
-        setError(message);
+        setResponseMessage({message,type:EnumResponseStatus.invalid});
 
         //message should kill once it used
         setTimeout(() => {
-          setError(undefined);
+          setResponseMessage(undefined);
         }, 1000);
       } else if (status == EnumResponseStatus.valid) {
         //set token to localstorage
@@ -74,7 +76,7 @@ export default function Login() {
           </div>
         </div>
       </main>
-      <ToastifyError text={error!} />
+      <Toastify responseMessage={responseMessage!} />
     </>
   );
 }

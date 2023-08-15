@@ -7,7 +7,7 @@ import toIcon from "./toIcon.png";
 import fromIcon from "./fromIcon.png";
 import searchIcon from "./search.png";
 import { locationType } from "../../components/Map";
-import "./index.scss";
+import styles from "./index.module.scss";
 import {
   ConvertEnNumToPe,
   EnumResponseStatus,
@@ -104,7 +104,7 @@ export default function Vehicle() {
     if (responseMessage) {
       setTimeout(() => {
         setResponseMessage(undefined);
-      }, 3000);
+      }, 6000);
     }
   }, [setResponseMessage, responseMessage]);
 
@@ -112,16 +112,16 @@ export default function Vehicle() {
   const canBeSave = from && to;
 
   return (
-    <div className="main">
+    <div className={styles.main}>
       <Map
         callback={setLocation}
         defaultLocation={defaultLocation}
         markers={markers!}
       />
-      <div className="form">
-        <div className="rowFrom">
+      <div className={styles.form}>
+        <div className={styles.rowFrom}>
           <img src={fromIcon} width={30} />
-          <span className="title">مبدا :</span>
+          <span className={styles.title}>مبدا :</span>
           {from ? (
             <span>
               {ConvertEnNumToPe(from.lng)},{ConvertEnNumToPe(from.lat)}
@@ -132,9 +132,9 @@ export default function Vehicle() {
             </span>
           )}
         </div>
-        <div className="rowTo">
+        <div className={styles.rowTo}>
           <img src={toIcon} width={30} />
-          <span className="title">مقصد :</span>
+          <span className={styles.title}>مقصد :</span>
           {to ? (
             <span>
               {ConvertEnNumToPe(to.lng)},{ConvertEnNumToPe(to.lat)}
@@ -152,7 +152,7 @@ export default function Vehicle() {
             vehicles={vehicles}
           />
         )}
-        <div className="row marginTop">
+        <div className={`${styles.row} ${styles.marginTop}`}>
           <input
             type="text"
             onChange={(event) => setSearchTerm(event.target.value)}
@@ -161,7 +161,7 @@ export default function Vehicle() {
           <img src={searchIcon} />
         </div>
 
-        <div className="row marginTop">
+        <div className={`${styles.row} ${styles.marginTop}`}>
           <Button
             text="ثبت درخواست"
             width="large"

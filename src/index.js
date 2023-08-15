@@ -3,16 +3,12 @@ import ReactDOM from "react-dom/client";
 import "./assets/index.scss";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter,HashRouter as Router, Route, Routes } from "react-router-dom";
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Router basename="/pages">
-      <Routes>
-        <Route path="/*" element={<App />} />
-      </Routes>
-    </Router>
+    <App />
   </React.StrictMode>
 );
 

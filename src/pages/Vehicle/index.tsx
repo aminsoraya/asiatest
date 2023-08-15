@@ -5,9 +5,11 @@ import fromMarkerIcon from "./fromMarkerIcon.png";
 import toMarkerIcon from "./toMarkerIcon.png";
 import toIcon from "./toIcon.png";
 import fromIcon from "./fromIcon.png";
+import searchIcon from "./search.png";
 import { locationType } from "../../components/Map";
 import "./index.scss";
 import { ConvertEnNumToPe } from "../../bussiness/index";
+import Button from "../../components/button";
 
 const toMarker = new L.Icon({
   iconUrl: toMarkerIcon,
@@ -60,19 +62,31 @@ export default function Vehicle() {
             <span>
               {ConvertEnNumToPe(from.lng)},{ConvertEnNumToPe(from.lat)}
             </span>
-          ):<span>---------------------------------------------------------</span>}
+          ) : (
+            <span>
+              ---------------------------------------------------------
+            </span>
+          )}
         </div>
         <div className="rowTo">
           <img src={toIcon} width={30} />
           <span className="title">مقصد :</span>
-          {to ?(
+          {to ? (
             <span>
               {ConvertEnNumToPe(to.lng)},{ConvertEnNumToPe(to.lat)}
             </span>
-          ):<span>---------------------------------------------------------</span>}
+          ) : (
+            <span>
+              ---------------------------------------------------------
+            </span>
+          )}
         </div>
         <div className="row">
           <input type="text" placeholder="نوع ماشین آلات" />
+          <img src={searchIcon} />
+        </div>
+        <div className="row marginTop">
+          <Button text="ثبت درخواست" width="large" callback={() => {}} loading={false}  />
         </div>
       </div>
     </div>

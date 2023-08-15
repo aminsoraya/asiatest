@@ -10,7 +10,7 @@
 .main {
   position: relative;
   .form {
-    height: 250px;
+    height: 200px;
     width: 60%;
     position: absolute;
     background-color: white;
@@ -45,7 +45,18 @@
         border-radius: 10px;
         padding-right: 10px;
         padding-left: 10px;
+        outline: none;
       }
+      img{
+        mix-blend-mode: color-burn;
+        position: absolute;
+        z-index: 700;
+        width: 20px;
+        left: 20px;
+      }
+    }
+    .marginTop{
+      margin-top: 20px;
     }
   }
 }

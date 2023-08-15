@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/aminsoraya/asiatest/static/css/main.ae96c186.css",
-    "main.js": "/aminsoraya/asiatest/static/js/main.01813cb3.js",
-    "static/js/787.37e6354d.chunk.js": "/aminsoraya/asiatest/static/js/787.37e6354d.chunk.js",
-    "static/media/search.png": "/aminsoraya/asiatest/static/media/search.964e920a5e9430c5bbce.png",
-    "static/media/iranyekanwebregular.e31c09af.woff2": "/aminsoraya/asiatest/static/media/iranyekanwebregular.e31c09af.1cb1e330de9f566e76c7.woff2",
-    "static/media/fromIcon.png": "/aminsoraya/asiatest/static/media/fromIcon.a08eaf58edb77a6cdbb7.png",
-    "index.html": "/aminsoraya/asiatest/index.html",
-    "main.ae96c186.css.map": "/aminsoraya/asiatest/static/css/main.ae96c186.css.map",
-    "main.01813cb3.js.map": "/aminsoraya/asiatest/static/js/main.01813cb3.js.map",
-    "787.37e6354d.chunk.js.map": "/aminsoraya/asiatest/static/js/787.37e6354d.chunk.js.map"
+    "main.css": "/asiatest/static/css/main.86dc19b2.css",
+    "main.js": "/asiatest/static/js/main.621fe904.js",
+    "static/js/787.37e6354d.chunk.js": "/asiatest/static/js/787.37e6354d.chunk.js",
+    "static/media/search.png": "/asiatest/static/media/search.964e920a5e9430c5bbce.png",
+    "static/media/iranyekanwebregular.e31c09af.woff2": "/asiatest/static/media/iranyekanwebregular.e31c09af.1cb1e330de9f566e76c7.woff2",
+    "static/media/fromIcon.png": "/asiatest/static/media/fromIcon.a08eaf58edb77a6cdbb7.png",
+    "index.html": "/asiatest/index.html",
+    "main.86dc19b2.css.map": "/asiatest/static/css/main.86dc19b2.css.map",
+    "main.621fe904.js.map": "/asiatest/static/js/main.621fe904.js.map",
+    "787.37e6354d.chunk.js.map": "/asiatest/static/js/787.37e6354d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ae96c186.css",
-    "static/js/main.01813cb3.js"
+    "static/css/main.86dc19b2.css",
+    "static/js/main.621fe904.js"
   ]
 }

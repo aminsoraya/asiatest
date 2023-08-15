@@ -17,6 +17,7 @@ import {
 import Button from "../../components/button";
 import useAxios from "../../api/index";
 import { ToastifyError } from "../../components/Toastify";
+import VehicleDetails from "./detail";
 
 const toMarker = new L.Icon({
   iconUrl: toMarkerIcon,
@@ -41,6 +42,9 @@ export default function Vehicle() {
   const [searchTerm, setSearchTerm] = useState<string | undefined>();
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
   const [vehicles, setVehicles] = useState<IVehicle[] | undefined>();
+  const [selectedVehicleId, setSelectedVehicleId] = useState<
+    number | undefined
+  >();
 
   const setLocation = ({ lat, lng }: locationType) => {
     if (markers?.length == 2) {
@@ -64,14 +68,29 @@ export default function Vehicle() {
           .get(`Request/GetVehicleUsers?SearchTerm=${searchTerm}`)
           .then(({ data }) => data);
 
+        console.log(data, message);
         if (status == EnumResponseStatus.valid && data.length == 0) {
           setVehicles(undefined);
-          setErrorMessage("نتیجه ای یافت نشد");
         } else if (status == EnumResponseStatus.valid && data.length > 0) {
           setVehicles(data);
         }
       })();
   }, [searchTerm]);
+
+  const sendRequest = async () => {
+   let {data,message,status}:IApiResponse= await axios.post("Request/SendRequest", {
+      vehicleUserTypeId: selectedVehicleId ?? 0,
+      source: `${from.lat},${from.lng}`,
+      destination: `${to.lat},${to.lng}`,
+    }).then(({data})=>data);
+    
+    if(status==EnumResponseStatus.valid){
+      setErrorMessage(message)
+    }
+  };
+
+  //prevent send request
+  const canBeSave = from && to;
 
   return (
     <div className="main">
@@ -108,20 +127,11 @@ export default function Vehicle() {
           )}
         </div>
         {vehicles && (
-          <div className="row marginTop">
-            {vehicles.map((item, index) => {
-              return (
-                <div
-                  key={index}
-                  className="vehicles_options"
-                  style={{ marginRight: index > 0 ? 5 : 0 }}
-                >
-                  <input type="radio" name="radio" onChange={(event)=>console.log(event.target.value)} value={item.id} id={index.toString()} />
-                  <label htmlFor={index.toString()}>{item.name}</label>
-                </div>
-              );
-            })}
-          </div>
+          <VehicleDetails
+            callback={(id) => setSelectedVehicleId(id)}
+            selectedId={selectedVehicleId}
+            vehicles={vehicles}
+          />
         )}
         <div className="row marginTop">
           <input
@@ -136,8 +146,9 @@ export default function Vehicle() {
           <Button
             text="ثبت درخواست"
             width="large"
-            callback={() => {}}
+            callback={sendRequest}
             loading={false}
+            disabled={!canBeSave}
           />
         </div>
       </div>

@@ -14,7 +14,6 @@ export enum EnumResponseStatus{
 export interface IVehicle{
     id:number,
     name:string;
-    isCheck?:boolean
 }
 export const ConvertEnNumToPe = (num: any) => {
     return num

@@ -17,7 +17,6 @@ import {
 } from "../../bussiness/index";
 import Button from "../../components/button";
 import useAxios from "../../api/index";
-import { ToastifyError } from "../../components/Toastify";
 import VehicleDetails from "./detail";
 import Toastify from "../../components/Toastify";
 
@@ -49,7 +48,9 @@ export default function Vehicle() {
   const [selectedVehicleId, setSelectedVehicleId] = useState<
     number | undefined
   >();
+  const [loading, setLoading] = useState<boolean>(false);
 
+  //set markers thich its callback
   const setLocation = ({ lat, lng }: locationType) => {
     if (markers?.length == 2) {
       setMarkers(undefined);
@@ -61,10 +62,12 @@ export default function Vehicle() {
     );
   };
 
+  //return source and destination locations
   const [from, to] = useMemo(() => {
     return markers! ?? [];
   }, [markers]);
 
+  //fetch vehicles
   useEffect(() => {
     if (searchTerm && searchTerm.length >= 2)
       (async () => {
@@ -72,7 +75,6 @@ export default function Vehicle() {
           .get(`Request/GetVehicleUsers?SearchTerm=${searchTerm}`)
           .then(({ data }) => data);
 
-        console.log(data, message);
         if (status == EnumResponseStatus.valid && data.length == 0) {
           setVehicles(undefined);
         } else if (status == EnumResponseStatus.valid && data.length > 0) {
@@ -81,19 +83,30 @@ export default function Vehicle() {
       })();
   }, [searchTerm]);
 
+  //send
   const sendRequest = async () => {
+    setLoading(true);
     let { data, message, status }: IApiResponse = await axios
       .post("Request/SendRequest", {
         vehicleUserTypeId: selectedVehicleId ?? 0,
         source: `${from.lat},${from.lng}`,
         destination: `${to.lat},${to.lng}`,
       })
-      .then(({ data }) => data);
-
+      .then(({ data }) => data)
+      .finally(() => setLoading(false));
     if (status == EnumResponseStatus.valid) {
       setResponseMessage({ type: status, message });
     }
   };
+
+  //clear message after elapsed sometime
+  useEffect(() => {
+    if (responseMessage) {
+      setTimeout(() => {
+        setResponseMessage(undefined);
+      }, 3000);
+    }
+  }, [setResponseMessage, responseMessage]);
 
   //prevent send request
   const canBeSave = from && to;
@@ -153,7 +166,7 @@ export default function Vehicle() {
             text="ثبت درخواست"
             width="large"
             callback={sendRequest}
-            loading={false}
+            loading={loading}
             disabled={!canBeSave}
           />
         </div>

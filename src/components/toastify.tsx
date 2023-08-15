@@ -44,7 +44,9 @@ interface IToastify {
 }
 
 export default function Toastify(props: IToastify) {
+  if (!props.responseMessage) return null;
   if (props.responseMessage.type == EnumResponseStatus.valid)
     return <ToastifySuccess text={props.responseMessage.message} />;
-  else return <ToastifyError text={props.responseMessage.message} />;
+  else if (props.responseMessage.type == EnumResponseStatus.invalid)
+    return <ToastifyError text={props.responseMessage.message} />;
 }

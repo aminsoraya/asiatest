@@ -1,20 +1,23 @@
-import React, { useState } from "react";
-import "leaflet/dist/leaflet.css";
+import React, { useMemo, useState } from "react";
 import Map from "../../components/Map";
 import L from "leaflet";
-import first from "./first.png";
-import second from "./second.png";
+import fromMarkerIcon from "./fromMarkerIcon.png";
+import toMarkerIcon from "./toMarkerIcon.png";
+import toIcon from "./toIcon.png";
+import fromIcon from "./fromIcon.png";
 import { locationType } from "../../components/Map";
+import "./index.scss";
+import { ConvertEnNumToPe } from "../../bussiness/index";
 
 const toMarker = new L.Icon({
-  iconUrl: first,
+  iconUrl: toMarkerIcon,
   iconSize: new L.Point(50, 50),
   popupAnchor: [0, 0],
   iconAnchor: [25, 50],
 });
 
 const fromMarker = new L.Icon({
-  iconUrl: second,
+  iconUrl: fromMarkerIcon,
   iconSize: new L.Point(50, 50),
   popupAnchor: [0, 0],
   iconAnchor: [25, 50],
@@ -38,13 +41,40 @@ export default function Vehicle() {
     );
   };
 
+  const [from, to] = useMemo(() => {
+    return markers! ?? [];
+  }, [markers]);
+
   return (
-    <>
+    <div className="main">
       <Map
         callback={setLocation}
         defaultLocation={defaultLocation}
         markers={markers!}
       />
-    </>
+      <div className="form">
+        <div className="rowFrom">
+          <img src={fromIcon} width={30} />
+          <span className="title">مبدا :</span>
+          {from ? (
+            <span>
+              {ConvertEnNumToPe(from.lng)},{ConvertEnNumToPe(from.lat)}
+            </span>
+          ):<span>---------------------------------------------------------</span>}
+        </div>
+        <div className="rowTo">
+          <img src={toIcon} width={30} />
+          <span className="title">مقصد :</span>
+          {to ?(
+            <span>
+              {ConvertEnNumToPe(to.lng)},{ConvertEnNumToPe(to.lat)}
+            </span>
+          ):<span>---------------------------------------------------------</span>}
+        </div>
+        <div className="row">
+          <input type="text" placeholder="نوع ماشین آلات" />
+        </div>
+      </div>
+    </div>
   );
 }

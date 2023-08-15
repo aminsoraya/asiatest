@@ -6,6 +6,7 @@ import {
   TileLayer,
   useMapEvents,
 } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
 
 export type locationType = {
   lat: number;

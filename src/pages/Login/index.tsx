@@ -69,7 +69,7 @@ export default function Login() {
               />
             </div>
             <div className="input_row">
-              <Button loading={loading} callback={() => login()} text="ورود" />
+              <Button loading={loading} width="large" callback={() => login()} text="ورود" />
             </div>
           </div>
         </div>

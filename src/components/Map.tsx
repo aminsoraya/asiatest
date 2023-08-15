@@ -23,6 +23,7 @@ export default function Map(props: IMapProps) {
     useMapEvents({
       click(e) {
         let { lat, lng } = e.latlng;
+        console.log(lat, lng )
         props.callback({ lat, lng });
       },
     });

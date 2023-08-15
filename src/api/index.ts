@@ -6,15 +6,14 @@ const InstanceEnhancer = ({ appendToken }: { appendToken?: boolean }) => {
   });
 
   instance.interceptors.request.use((config) => {
-    let token = localStorage.getItem("asia_token");
-
-    if (token && appendToken && config.method == "post")
+    let userToken =  localStorage.getItem("asia_token") ;
+    if (userToken && appendToken && config.method == "post")
       config.data = {
         ...config.data,
-        token,
+        userToken,
       };
-    else if (token && appendToken && config.method == "get")
-      config.params = { ...config.params, token };
+    else if (userToken && appendToken && config.method == "get")
+      config.params = { ...config.params, userToken };
 
     return config;
   });

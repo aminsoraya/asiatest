@@ -12,12 +12,14 @@ import {
   ConvertEnNumToPe,
   EnumResponseStatus,
   IApiResponse,
+  IResponseMessage,
   IVehicle,
 } from "../../bussiness/index";
 import Button from "../../components/button";
 import useAxios from "../../api/index";
 import { ToastifyError } from "../../components/Toastify";
 import VehicleDetails from "./detail";
+import Toastify from "../../components/Toastify";
 
 const toMarker = new L.Icon({
   iconUrl: toMarkerIcon,
@@ -40,7 +42,9 @@ export default function Vehicle() {
     { lat: number; lng: number; icon: any; title: string }[] | undefined
   >();
   const [searchTerm, setSearchTerm] = useState<string | undefined>();
-  const [errorMessage, setErrorMessage] = useState<string | undefined>();
+  const [responseMessage, setResponseMessage] = useState<
+    IResponseMessage | undefined
+  >();
   const [vehicles, setVehicles] = useState<IVehicle[] | undefined>();
   const [selectedVehicleId, setSelectedVehicleId] = useState<
     number | undefined
@@ -78,14 +82,16 @@ export default function Vehicle() {
   }, [searchTerm]);
 
   const sendRequest = async () => {
-   let {data,message,status}:IApiResponse= await axios.post("Request/SendRequest", {
-      vehicleUserTypeId: selectedVehicleId ?? 0,
-      source: `${from.lat},${from.lng}`,
-      destination: `${to.lat},${to.lng}`,
-    }).then(({data})=>data);
-    
-    if(status==EnumResponseStatus.valid){
-      setErrorMessage(message)
+    let { data, message, status }: IApiResponse = await axios
+      .post("Request/SendRequest", {
+        vehicleUserTypeId: selectedVehicleId ?? 0,
+        source: `${from.lat},${from.lng}`,
+        destination: `${to.lat},${to.lng}`,
+      })
+      .then(({ data }) => data);
+
+    if (status == EnumResponseStatus.valid) {
+      setResponseMessage({ type: status, message });
     }
   };
 
@@ -152,7 +158,7 @@ export default function Vehicle() {
           />
         </div>
       </div>
-      <ToastifyError text={errorMessage!} />
+      {<Toastify responseMessage={responseMessage!} />}
     </div>
   );
 }

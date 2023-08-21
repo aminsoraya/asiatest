@@ -69,10 +69,14 @@ export default function Vehicle() {
 
   //fetch vehicles
   useEffect(() => {
+    const controller = new AbortController();
+    
     if (searchTerm && searchTerm.length >= 2)
       (async () => {
         let { data, message, status }: IApiResponse = await axios
-          .get(`Request/GetVehicleUsers?SearchTerm=${searchTerm}`)
+          .get(`Request/GetVehicleUsers?SearchTerm=${searchTerm}`, {
+            signal: controller.signal,
+          })
           .then(({ data }) => data);
 
         if (status == EnumResponseStatus.valid && data.length == 0) {
@@ -81,6 +85,10 @@ export default function Vehicle() {
           setVehicles(data);
         }
       })();
+
+    return () => {
+      controller.abort();
+    };
   }, [searchTerm]);
 
   //send
